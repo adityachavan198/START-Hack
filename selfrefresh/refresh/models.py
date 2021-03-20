@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 
 class UserOfApp(AbstractUser):
     uid = models.AutoField('uid', primary_key=True)
-    eid = models.IntegerField('eid')
+    eid = models.IntegerField('eid', null=True)
 
 
 class Cluster(models.Model):
