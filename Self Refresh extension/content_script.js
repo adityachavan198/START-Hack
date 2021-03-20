@@ -6,8 +6,11 @@ var addOverlay = async function () {
       };
 
       try{
-        const data = await fetch("http://127.0.0.1:8000/refresh/fetchtrivia", requestOptions);
-        console.log(data);
+        const response = await fetch("http://127.0.0.1:8000/refresh/fetchtrivia", requestOptions);
+
+        var overlayContent = await response.json();
+        
+        addOverlayHtml(overlayContent);
         
         // fetch("http://127.0.0.1:8000/refresh/fetchtrivia", requestOptions)
         // .then(response => response.text())
@@ -17,21 +20,17 @@ var addOverlay = async function () {
         } catch (error) {
             // do nothing
         }
-
-        addOverlayHtml("Ada")
-
  }
- 
-
 
 function addOverlayHtml(overlayContent){
 
     // console.log(question)
-    question="Who is the current CEO of Accenture Company?"
-    option1 = "David P Rowland"
-    option2 =  "option2"
-    option3 = "John Rowland"
-    option4 = "Rowland Mackenzie"
+    question = overlayContent["question"];
+    option1 = overlayContent["option1"]
+    option2 =  overlayContent["option2"]
+    option3 = overlayContent["option3"]
+    option4 = overlayContent["option4"]
+    answer = overlayContent["answer"]
 
     var htmlStart = `<div class="modal fade" id="overlay-extension" role="dialog">
     <div class="modal-dialog">
@@ -78,7 +77,7 @@ function addOverlayHtml(overlayContent){
                 </div>
             </div>`;
    
-    overlay = htmlStart + question + html1 + option1 + html2 + option2 + html3 + option3 + html4 + option4 + htmlEnd;
+    var overlay = htmlStart + question + html1 + option1 + html2 + option2 + html3 + option3 + html4 + option4 + htmlEnd;
     
   $("body").append(overlay);
 }
