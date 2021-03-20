@@ -3,8 +3,9 @@ from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 # Create your views here.
+
 
 def fetchtrivia(request):
     data = {
