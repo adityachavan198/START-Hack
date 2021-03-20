@@ -26,6 +26,7 @@ class TriviaStore(models.Model):
     answer = models.IntegerField('answer', choices=[(
         0, 'null'), (1, 'answer1'), (2, 'answer2'), (3, 'answer3'), (4, 'answer4')])
     likes = models.IntegerField('likes', default=0)
+    dislikes = models.IntegerField('dislikes', default=0)
     displayed = models.IntegerField('displayed', default=0)
 
     # def __str__(self):
