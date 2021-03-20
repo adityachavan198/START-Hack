@@ -39,10 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'refresh',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +55,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'selfrefresh.urls'
+
+CORS_ORIGIN_ALLOW_ALL = True
+# If False, then
+# CORS_ORIGIN_WHITELIST = (
+#   'http://localhost:8000',
+# )
 
 TEMPLATES = [
     {
