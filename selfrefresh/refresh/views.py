@@ -20,11 +20,15 @@ def fetchtrivia(request):
         'option4': 'Rowland Mackenzie',
         'answer': 'David P Rowland',
     }
-    trivia_store = TriviaStore.objects.all().values()
-    trivia_list = list(trivia_store)
-    i = random.randint(0, len(trivia_list))
-    print(i)
-    return JsonResponse(trivia_list[i], safe=False)
+    # trivia_store = TriviaStore.objects.all().values()
+    # trivia_list = list(trivia_store)
+    # i = random.randint(0, len(trivia_list))
+    # print(i)
+    # return JsonResponse(trivia_list[i], safe=False)
+    totalQuestions = TriviaStore.objects.count()
+    randomQuestionId = random.randint(0, totalQuestions)
+    question = TriviaStore.objects.filter(tid=randomQuestionId).values()
+    return JsonResponse(question[0], safe=False)
 
 
 @csrf_exempt
@@ -44,7 +48,7 @@ def saveresponse(request):
         cid = question.cid
         score = Score.objects.filter(uid=uid, cid=cid)
         if len(score) == 0:
-            #create score
+            # create score
             if answer == True:
                 t = 10
             else:
