@@ -6,4 +6,5 @@ urlpatterns = [
     # path("index", views.index,name="index"),
     path("fetchtrivia", views.fetchtrivia, name="fetchtrivia"),
     path("saveresponse", views.saveresponse, name="saveresponse"),
+    path("logIn", views.logIn, name="logIn"),
 ]

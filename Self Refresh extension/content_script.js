@@ -1,3 +1,12 @@
+var uid = localStorage.getItem("self-refresh-user-id");
+clearInterval(triviaLoop);
+localStorage.removeItem('self-refresh-counter');
+
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  uid = message
+  localStorage.setItem("self-refresh-user-id", uid);
+
+});
 
 var addOverlay = async function () {
 
@@ -38,7 +47,7 @@ function addOverlayHtml(overlayContent) {
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Quick Refresh</h4>
         </div>
-        <span class="hidden" id="fetchtrivia_uid">1</span>
+        
         <span class="hidden" id="fetchtrivia_tid">`+ tid + `</span>
         <div class="modal-body">
           <p>`;
@@ -74,9 +83,8 @@ function addOverlayHtml(overlayContent) {
                         <div id="fetchtrivia_dislike" class="radio ">
                             <label><input type="radio" name="optradio_like_dislike" value="0">Dislike</label>
                         </div>
-                    <button id="fetchtrivia-cancel-button" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button id="fetchtrivia-check-button" type="button" class="btn btn-default">Check</button>
-                    
+                    <button id="fetchtrivia-stop-button" type="button" class="btn btn-default" data-dismiss="modal">Stop Trivia</button>
+                    <button id="fetchtrivia-check-button" type="button" class="btn btn-default">Check</button>                    
                     </div>
                 </div>
                 
@@ -119,7 +127,7 @@ function addOverlayFunction(answer) {
       myHeaders.append("Content-Type", "text/plain");
 
 
-      raw["uid"] = $("#fetchtrivia_uid").html();
+      raw["uid"] = Number(localStorage.getItem("self-refresh-user-id"))
       raw["tid"] = $("#fetchtrivia_tid").html();;
       raw["like"] = $('input[name="optradio_like_dislike"]:checked').val() ?? -1;
 
@@ -140,18 +148,14 @@ function addOverlayFunction(answer) {
     }
   });
 
+  $("#fetchtrivia-stop-button").click(function () {
+    clearInterval(triviaLoop);
+    localStorage.removeItem('self-refresh-counter');
+  });
+
 }
 
 function clickPlanet() {
-  // console.log(counter);
-  // if (localStorage.getItem("self-refresh-counter") == null) {
-  //   localStorage.setItem("self-refresh-counter", 0);
-  // }
-  // else {
-  //   counter = Number(localStorage.getItem("self-refresh-counter"));
-  //   counter++;
-  //   localStorage.setItem("self-refresh-counter", counter);
-  // }
 
   if ($('#overlay-extension').length == 0) {
 
@@ -183,8 +187,9 @@ else {
 
 
 if (Number(localStorage.getItem("self-refresh-counter")) == 1) {
-  setInterval(function () {
-    clickPlanet()
+  var triviaLoop = setInterval(function () {
+    clickPlanet();
 
   }, 10000);
 }
+

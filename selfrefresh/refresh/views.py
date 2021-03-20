@@ -47,13 +47,14 @@ def saveresponse(request):
         question = TriviaStore.objects.filter(tid=tid)[0]
         cid = question.cid
         score = Score.objects.filter(uid=uid, cid=cid)
+        user = UserOfApp.objects.get(pk=uid)
         if len(score) == 0:
             # create score
             if answer == True:
                 t = 10
             else:
                 t = 0
-            score = Score(uid=uid, cid=cid, score=t)
+            score = Score(uid=user, cid=cid, score=t)
         else:
             if answer == True:
                 score = score[0]
@@ -70,6 +71,23 @@ def saveresponse(request):
         print('question', question)
         print('cluster', cid)
         print('like', like, type(like))
-        user = UserOfApp.objects.filter(uid=uid)[0]
         print(user)
         return HttpResponse('Changes Saved Sucessfully')
+
+
+@csrf_exempt
+def logIn(request):
+    success = {'type': 'success'}
+    fail = {'type': 'error'}
+    if request.method == 'POST':
+        received_json_data = json.loads(request.body)
+        print(received_json_data['email'])
+        print(received_json_data['password'])
+        email = received_json_data['email']
+        password = received_json_data['password']
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            success['uid'] = user.uid
+            return JsonResponse(success)
+        else:
+            return JsonResponse(fail)

@@ -15,19 +15,23 @@
         <h2>Refresh Me</h2>
       </div>
       <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-      <form>
+      <form id="self_refresh_login_form">
+        <div class="form-group" id="self_refresh_login_message">
+        </div>
         <div class="form-group">
           <label for="email">Email address:</label>
-          <input type="email" class="form-control" id="email">
+          <input type="email" class="form-control" id="email" name="email" required>
         </div>
         <div class="form-group">
           <label for="pwd">Password:</label>
-          <input type="password" class="form-control" id="pwd">
+          <input type="password" class="form-control" id="password" name="password" required>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button id="self_refresh_login" type="button" class="btn btn-submit">Submit</button>
       </form>
-      <button id="startTrivia" style="margin: 2%;" class="btn btn-info">Start Trivia</button>
+      <button id="startTrivia" style="margin: 2%;" class="btn btn-info hidden">Start Trivia</button>
+      <button id="self_refresh_logout" style="margin: 2%;" class="btn btn-danger hidden">Log Out</button>
     </div>
+    <script src="js/jquery.js"></script>
     <script src="popup.js"></script>
   </body>
 
