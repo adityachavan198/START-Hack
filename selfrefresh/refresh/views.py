@@ -67,4 +67,4 @@ def saveresponse(request):
         print('like', like, type(like))
         user = UserOfApp.objects.filter(uid=uid)[0]
         print(user)
-        return HttpResponse(received_json_data)
+        return HttpResponse('Changes Saved Sucessfully')
