@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "Start Hack",
+  "description": "Wow",
+  "version": "1.0",
+  "permissions": [
+    "tabs",
+    "<all_urls>"
+  ],
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+       "matches":    ["<all_urls>"],
+       "css":        [  "css/bootstrap.css",
+                        "src/inject/inject.css"
+                      ],
+       "js":         [
+                        "js/jquery.js",
+                        "js/bootstrap.js",
+                        "src/inject/inject.js"
+                      ]
+    }
+ ]
+}
