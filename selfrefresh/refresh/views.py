@@ -30,8 +30,39 @@ def fetchtrivia(request):
 def saveresponse(request):
     if request.method=='POST':
         received_json_data = json.loads(request.body)
-        print(received_json_data)
         print(received_json_data['tid'])
         print(received_json_data['answer'])
         print(received_json_data['like'])
+        print(received_json_data['uid'])
+        tid = received_json_data['tid']
+        answer = received_json_data['answer']
+        like = received_json_data['like']
+        uid = received_json_data['uid']
+        data = received_json_data
+        question = TriviaStore.objects.filter(tid=tid)[0]
+        cid = question.cid
+        score = Score.objects.filter(uid=uid, cid=cid)
+        if len(score) == 0:
+            #create score
+            if answer == True:
+                t = 10
+            else:
+                t = 0
+            score = Score(uid=uid, cid=cid, score=t)
+        else:
+            if answer == True:
+                score = score[0]
+                score.score = score.score + 10
+                score.save()
+        if like == 0:
+            # question.dislikes = question.dislikes + 10
+            pass
+        elif like == 1:
+            question.likes = question.likes + 10
+
+        print('score', score)
+        print('question', question)
+        print('cluster', cluster)
+        user = UserOfApp.objects.filter(uid=uid)[0]
+        print(user)
         return HttpResponse(received_json_data)
