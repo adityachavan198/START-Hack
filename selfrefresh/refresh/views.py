@@ -23,12 +23,13 @@ def fetchtrivia(request):
     trivia_store = TriviaStore.objects.all().values()
     trivia_list = list(trivia_store)
     i = random.randint(0, len(trivia_list))
-
+    print(i)
     return JsonResponse(trivia_list[i], safe=False)
+
 
 @csrf_exempt
 def saveresponse(request):
-    if request.method=='POST':
+    if request.method == 'POST':
         received_json_data = json.loads(request.body)
         print(received_json_data['tid'])
         print(received_json_data['answer'])
