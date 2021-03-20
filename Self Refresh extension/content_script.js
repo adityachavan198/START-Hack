@@ -20,6 +20,7 @@ var addOverlay = async function () {
 function addOverlayHtml(overlayContent){
 
     // console.log(question)
+    tid = overlayContent["tid"];
     question = overlayContent["question"];
     option1 = overlayContent["option1"]
     option2 =  overlayContent["option2"]
@@ -36,6 +37,8 @@ function addOverlayHtml(overlayContent){
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Quick Refresh</h4>
         </div>
+        <span class="hidden" id="fetchtrivia_uid">1</span>
+        <span class="hidden" id="fetchtrivia_tid">`+tid+`</span>
         <div class="modal-body">
           <p>`;
     
@@ -64,8 +67,15 @@ function addOverlayHtml(overlayContent){
                         </div>
                     </div>
                     <div class="modal-footer">
+                    <div id="fetchtrivia_like" class="radio ">
+                            <label><input type="radio" name="optradio_like_dislike" value="1">Like</label>
+                        </div>                        
+                        <div id="fetchtrivia_dislike" class="radio ">
+                            <label><input type="radio" name="optradio_like_dislike" value="0">Dislike</label>
+                        </div>
                     <button id="fetchtrivia-cancel-button" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button id="fetchtrivia-check-button" type="button" class="btn btn-default" >Check</button>
+                    
                     </div>
                 </div>
                 
@@ -91,21 +101,37 @@ function addOverlayFunction(answer){
         var $selected_answer = $('input[name="optradio"]:checked');
         if($selected_answer.length > 0){
             var radio_element = $('input[name="optradio"]:checked')[0] ?? $('input[name="optradio"]:checked');
-            // if (radio == undefined)
-            // {
-            //         radio =  $('input[name="optradio"]:checked').parentElement.parentElement.id;
-            //     }  
-            // else{
-            //         radio =  $('input[name="optradio"]:checked')[0].parentElement.parentElement.id;
-            // } 
+           
             let radio = radio_element.parentElement.parentElement;
             var radio_id = radio.id[radio.id.length-1]
-            
+            var raw = {};
 
             if( radio_id != answer){
                 var radio_element_wrong = $("#fetchtrivia_option_"+radio_id);
                 radio_element_wrong.addClass("alert-danger");
+                raw["answer"]=false;
             }
+            else{
+                raw["answer"]=true;
+            }
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "text/plain");
+
+            
+            raw["uid"]=$("#fetchtrivia_uid").html();
+            raw["tid"]=$("#fetchtrivia_tid").html();;            
+            raw["like"]= $('input[name="optradio_like_dislike"]:checked').val() ?? -1;
+
+            var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify(raw)
+            };
+
+            fetch("http://127.0.0.1:8000/refresh/saveresponse", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
 
             var radio_element_right = $("#fetchtrivia_option_"+answer);
             radio_element_right.addClass("alert-success");
@@ -138,8 +164,8 @@ function clickPlanet() {
 clickPlanet()
 
 
-setInterval(function() {
-    clickPlanet()
+// setInterval(function() {
+//     clickPlanet()
 
-}, 10000);
+// }, 10000);
 
