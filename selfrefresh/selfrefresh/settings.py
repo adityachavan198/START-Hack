@@ -75,11 +75,14 @@ WSGI_APPLICATION = 'selfrefresh.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'start-hack',
+        'USER': 'starthack',
+        'PASSWORD': 'jNM5RronA?&39?xJ',
+        'HOST': '208.91.198.197',
+        'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
