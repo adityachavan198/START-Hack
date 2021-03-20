@@ -1,20 +1,34 @@
 <!doctype html>
 <html>
 
-<head>
-  <title>activity</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-</head>
+  <head>
+    <title>Regresh Me</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  </head>
 
-<body>
+  <body style="width: 300px;">
 
-  
-  <div style="margin-bottom: 10%;" class="container">
-    <h2>Options</h2>
-    <button id="startTrivia" style="margin-bottom: 2%;"  class="btn btn-info">Start Trivia</button>
-  </div>
-  <script src="popup.js"></script>
-</body>
+
+    <div style="margin: 10%;" class="container">
+      <div class="container">
+        <h2>Refresh Me</h2>
+      </div>
+      <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+      <form>
+        <div class="form-group">
+          <label for="email">Email address:</label>
+          <input type="email" class="form-control" id="email">
+        </div>
+        <div class="form-group">
+          <label for="pwd">Password:</label>
+          <input type="password" class="form-control" id="pwd">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <button id="startTrivia" style="margin: 2%;" class="btn btn-info">Start Trivia</button>
+    </div>
+    <script src="popup.js"></script>
+  </body>
 
 </html>

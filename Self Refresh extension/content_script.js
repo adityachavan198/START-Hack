@@ -75,7 +75,7 @@ function addOverlayHtml(overlayContent) {
                             <label><input type="radio" name="optradio_like_dislike" value="0">Dislike</label>
                         </div>
                     <button id="fetchtrivia-cancel-button" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button id="fetchtrivia-check-button" type="button" class="btn btn-default" >Check</button>
+                    <button id="fetchtrivia-check-button" type="button" class="btn btn-default">Check</button>
                     
                     </div>
                 </div>
