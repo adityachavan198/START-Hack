@@ -4,18 +4,22 @@ from .models import *
 class UserAdmin(admin.ModelAdmin):
     list_display=['uid', 'first_name','last_name','email']
     search_fields=['first_name','last_name','email']
+    list_filter=['first_name','last_name','email']
 
 class TriviaStoreAdmin(admin.ModelAdmin):
-    list_display=['tid', 'cid','question','option1','option2', 'option3', 'option4', 'answer', 'likes', 'displayed']
-    search_fields=['tid', 'cid','question','option1','option2', 'option3', 'option4', 'answer', 'likes', 'displayed']
+    list_display=['tid', 'cid','question','option1','option2', 'option3', 'option4', 'answer', 'likes', 'dislikes', 'displayed']
+    search_fields=['tid', 'cid','question','option1','option2', 'option3', 'option4', 'answer', 'likes', 'dislikes', 'displayed']
+    list_filter=['tid', 'cid','question','option1','option2', 'option3', 'option4', 'answer', 'likes', 'dislikes', 'displayed']
 
 class ClusterAdmin(admin.ModelAdmin):
     list_display=['cid', 'cname']
     search_fields=['cid', 'cname']
+    list_filter=['cid', 'cname']
 
 class ScoreAdmin(admin.ModelAdmin):
     list_display=['sid', 'uid','cid','score']
     search_fields=['sid', 'uid','cid','score']
+    list_filter=['sid', 'uid','cid','score']
 
 
 admin.site.register(UserOfApp,UserAdmin)

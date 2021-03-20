@@ -55,14 +55,16 @@ def saveresponse(request):
                 score.score = score.score + 10
                 score.save()
         if like == 0:
-            # question.dislikes = question.dislikes + 10
-            pass
+            question.dislikes = question.dislikes + 1
+            question.save()
         elif like == 1:
-            question.likes = question.likes + 10
+            question.likes = question.likes + 1
+            question.save()
 
         print('score', score)
         print('question', question)
-        print('cluster', cluster)
+        print('cluster', cid)
+        print('like', like, type(like))
         user = UserOfApp.objects.filter(uid=uid)[0]
         print(user)
         return HttpResponse(received_json_data)
