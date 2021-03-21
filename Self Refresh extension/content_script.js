@@ -77,12 +77,13 @@ function addOverlayHtml(overlayContent) {
                         </div>
                     </div>
                     <div class="modal-footer">
-                    <div id="fetchtrivia_like" class="radio ">
+                    <div id="fetchtrivia_like" class="radio-inline ">
                             <label><input type="radio" name="optradio_like_dislike" value="1">Like</label>
                         </div>                        
-                        <div id="fetchtrivia_dislike" class="radio ">
+                        <div id="fetchtrivia_dislike" class="radio-inline ">
                             <label><input type="radio" name="optradio_like_dislike" value="0">Dislike</label>
                         </div>
+                        <br><br>
                     <button id="fetchtrivia-stop-button" type="button" class="btn btn-default" data-dismiss="modal">Stop Trivia</button>
                     <button id="fetchtrivia-check-button" type="button" class="btn btn-default">Check</button>                    
                     </div>
