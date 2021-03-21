@@ -10,9 +10,15 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
 var addOverlay = async function () {
 
+  var raw = {};
+  raw["uid"] = Number(localStorage.getItem("self-refresh-user-id")) ?? -1;
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "text/plain");
+
   var requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
+    method: 'POST',
+    headers: myHeaders,
+    body: JSON.stringify(raw)
   };
 
   try {
@@ -36,6 +42,7 @@ function addOverlayHtml(overlayContent) {
   option2 = overlayContent["option2"]
   option3 = overlayContent["option3"]
   option4 = overlayContent["option4"]
+  points = overlayContent["points"]
   answer = overlayContent["answer"]
 
   var htmlStart = `<div class="modal fade" id="overlay-extension" role="dialog">
@@ -46,6 +53,7 @@ function addOverlayHtml(overlayContent) {
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Quick Refresh</h4>
+          <span class="pull-right">Total Score: `+ points + `</span>
         </div>
         
         <span class="hidden" id="fetchtrivia_tid">`+ tid + `</span>
