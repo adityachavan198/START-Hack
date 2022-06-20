@@ -36,18 +36,19 @@ function addOverlayHtml(overlayContent) {
   option2 = overlayContent["option2"]
   option3 = overlayContent["option3"]
   option4 = overlayContent["option4"]
+  option4 = overlayContent["question"]
   answer = overlayContent["answer"]
 
   var htmlStart = `<div class="modal fade" id="overlay-extension" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Quick Refresh</h4>
         </div>
-        
+
         <span class="hidden" id="fetchtrivia_tid">`+ tid + `</span>
         <div class="modal-body">
           <p>`;
@@ -79,15 +80,15 @@ function addOverlayHtml(overlayContent) {
                     <div class="modal-footer">
                     <div id="fetchtrivia_like" class="radio ">
                             <label><input type="radio" name="optradio_like_dislike" value="1">Like</label>
-                        </div>                        
+                        </div>
                         <div id="fetchtrivia_dislike" class="radio ">
                             <label><input type="radio" name="optradio_like_dislike" value="0">Dislike</label>
                         </div>
                     <button id="fetchtrivia-stop-button" type="button" class="btn btn-default" data-dismiss="modal">Stop Trivia</button>
-                    <button id="fetchtrivia-check-button" type="button" class="btn btn-default">Check</button>                    
+                    <button id="fetchtrivia-check-button" type="button" class="btn btn-default">Check</button>
                     </div>
                 </div>
-                
+
                 </div>
             </div>`;
 
@@ -192,4 +193,3 @@ if (Number(localStorage.getItem("self-refresh-counter")) == 1) {
 
   }, 10000);
 }
-

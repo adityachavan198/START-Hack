@@ -20,15 +20,17 @@ def fetchtrivia(request):
         'option4': 'Rowland Mackenzie',
         'answer': 'David P Rowland',
     }
-    # trivia_store = TriviaStore.objects.all().values()
-    # trivia_list = list(trivia_store)
-    # i = random.randint(0, len(trivia_list))
-    # print(i)
-    # return JsonResponse(trivia_list[i], safe=False)
-    totalQuestions = TriviaStore.objects.count()
-    randomQuestionId = random.randint(0, totalQuestions)
-    question = TriviaStore.objects.filter(tid=randomQuestionId).values()
-    return JsonResponse(question[0], safe=False)
+    cid = Cluster.objects.filter(cname="Accenture")[0]
+    trivia_store = TriviaStore.objects.filter(cid=cid).values()
+    print(trivia_store)
+    trivia_list = list(trivia_store)
+    i = random.randint(0, len(trivia_list))
+    print(i)
+    return JsonResponse(trivia_list[i], safe=False)
+    # totalQuestions = TriviaStore.objects.count()
+    # randomQuestionId = random.randint(0, totalQuestions)
+    # question = TriviaStore.objects.filter(tid=randomQuestionId).values()
+    # return JsonResponse(question[0], safe=False)
 
 
 @csrf_exempt

@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Start Hack",
-  "description": "Wow",
+  "name": "SelfRefresh",
+  "description": "Employee Engagement Tool",
   "version": "1.0",
   "permissions": [
     "tabs",
