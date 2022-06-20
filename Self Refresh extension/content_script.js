@@ -10,9 +10,15 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
 var addOverlay = async function () {
 
+  var raw = {};
+  raw["uid"] = Number(localStorage.getItem("self-refresh-user-id")) ?? -1;
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "text/plain");
+
   var requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
+    method: 'POST',
+    headers: myHeaders,
+    body: JSON.stringify(raw)
   };
 
   try {
@@ -36,7 +42,11 @@ function addOverlayHtml(overlayContent) {
   option2 = overlayContent["option2"]
   option3 = overlayContent["option3"]
   option4 = overlayContent["option4"]
+<<<<<<< HEAD
   option4 = overlayContent["question"]
+=======
+  points = overlayContent["points"]
+>>>>>>> 9947af92d5909ed0fbb4467c55b681785e61017d
   answer = overlayContent["answer"]
 
   var htmlStart = `<div class="modal fade" id="overlay-extension" role="dialog">
@@ -47,6 +57,7 @@ function addOverlayHtml(overlayContent) {
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Quick Refresh</h4>
+          <span class="pull-right">Total Score: `+ points + `</span>
         </div>
 
         <span class="hidden" id="fetchtrivia_tid">`+ tid + `</span>
@@ -78,12 +89,18 @@ function addOverlayHtml(overlayContent) {
                         </div>
                     </div>
                     <div class="modal-footer">
-                    <div id="fetchtrivia_like" class="radio ">
+                    <div id="fetchtrivia_like" class="radio-inline ">
                             <label><input type="radio" name="optradio_like_dislike" value="1">Like</label>
+<<<<<<< HEAD
                         </div>
                         <div id="fetchtrivia_dislike" class="radio ">
+=======
+                        </div>                        
+                        <div id="fetchtrivia_dislike" class="radio-inline ">
+>>>>>>> 9947af92d5909ed0fbb4467c55b681785e61017d
                             <label><input type="radio" name="optradio_like_dislike" value="0">Dislike</label>
                         </div>
+                        <br><br>
                     <button id="fetchtrivia-stop-button" type="button" class="btn btn-default" data-dismiss="modal">Stop Trivia</button>
                     <button id="fetchtrivia-check-button" type="button" class="btn btn-default">Check</button>
                     </div>

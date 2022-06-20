@@ -10,7 +10,9 @@ import json
 # Create your views here.
 
 
+@csrf_exempt
 def fetchtrivia(request):
+<<<<<<< HEAD
     data = {
         'tid': 1,
         'question': 'Who is the current CEO of Accenture Company?',
@@ -31,6 +33,31 @@ def fetchtrivia(request):
     # randomQuestionId = random.randint(0, totalQuestions)
     # question = TriviaStore.objects.filter(tid=randomQuestionId).values()
     # return JsonResponse(question[0], safe=False)
+=======
+    fail = {'type': 'error'}
+    if request.method == 'POST':
+        received_json_data = json.loads(request.body)
+        uid = received_json_data['uid']
+        if(uid != -1):
+            # cid = received_json_data['cid']
+            user = UserOfApp.objects.get(pk=uid)
+            score = Score.objects.filter(uid=uid, cid=1)
+            totalQuestions = TriviaStore.objects.count()
+            randomQuestionId = random.randint(0, totalQuestions)
+            question = TriviaStore.objects.filter(
+                tid=randomQuestionId).values()
+            if len(score) == 0:
+                points = 0
+            else:
+                score = score[0]
+                points = score.score
+            response = dict(question[0])
+            response['points'] = points
+            print(response)
+            return JsonResponse(response, safe=False)
+        else:
+            return JsonResponse(fail)
+>>>>>>> 9947af92d5909ed0fbb4467c55b681785e61017d
 
 
 @csrf_exempt
@@ -48,26 +75,30 @@ def saveresponse(request):
         data = received_json_data
         question = TriviaStore.objects.filter(tid=tid)[0]
         cid = question.cid
-        score = Score.objects.filter(uid=uid, cid=cid)
         user = UserOfApp.objects.get(pk=uid)
+        score = Score.objects.filter(uid=user, cid=cid)
+        print('cid: ', cid)
         if len(score) == 0:
+            print('score: ', score.values())
             # create score
             if answer == True:
                 t = 10
             else:
                 t = 0
             score = Score(uid=user, cid=cid, score=t)
+            score.save()
         else:
+            print('score: ', score[0])
             if answer == True:
                 score = score[0]
                 score.score = score.score + 10
                 score.save()
-        if like == 0:
-            question.dislikes = question.dislikes + 1
-            question.save()
-        elif like == 1:
-            question.likes = question.likes + 1
-            question.save()
+            if like == 0:
+                question.dislikes = question.dislikes + 1
+                question.save()
+            elif like == 1:
+                question.likes = question.likes + 1
+                question.save()
 
         print('score', score)
         print('question', question)
